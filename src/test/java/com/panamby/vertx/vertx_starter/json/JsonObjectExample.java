@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
 class JsonObjectExample {
@@ -37,5 +38,19 @@ class JsonObjectExample {
 		assertEquals(1, asJsonObject.getInteger("id"));
 		assertEquals("Alice", asJsonObject.getString("name"));
 		assertEquals(true, asJsonObject.getBoolean("loves_vertx"));
+	}
+
+	@Test
+	void jsonArrayCanBeMapped() {
+		
+		final JsonArray myJsonArray = new JsonArray();
+		myJsonArray
+			.add(new JsonObject().put("id", 1))
+			.add(new JsonObject().put("id", 2))
+			.add(new JsonObject().put("id", 3))
+			.add("randomValue");
+		
+		assertEquals("[{\"id\":1},{\"id\":2},{\"id\":3},\"randomValue\"]", myJsonArray.encode());
+		
 	}
 }
